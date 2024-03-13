@@ -13,6 +13,7 @@ app.get("/", (req, res, next) => {
 app.get("/api/v1/customers", (req, res, next) => {
   res.status(200).json({
     status: "Success",
+    totalData: customers.length,
     data: { customers },
   });
 });
