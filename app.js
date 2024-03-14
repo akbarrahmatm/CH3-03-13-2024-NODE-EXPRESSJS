@@ -114,11 +114,13 @@ const insertCustomer = (req, res, next) => {
 
 // Router
 app.get("/", defaultRouter);
-app.get("/api/v1/customers", getAllCustomer);
-app.get("/api/v1/customers/:id", getCustomerById);
-app.patch("/api/v1/customers/:id", updateCustomer);
-app.patch("/api/v1/customers/delete/:id", deleteCustomer);
-app.post("/api/v1/customers", insertCustomer);
+
+app.route("/api/v1/customers").get(getAllCustomer).post(insertCustomer);
+app
+  .route("/api/v1/customers/:id")
+  .get(getCustomerById)
+  .patch(updateCustomer)
+  .delete(deleteCustomer);
 
 app.listen(PORT, () => {
   console.log(`App running on: locahost:${PORT}`);
