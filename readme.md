@@ -1,6 +1,6 @@
-# Live Coding FD 15 (14-03-2024)
+# Live Coding FD 16-19 (15-03-2024 - 21-03-2024)
 
-RESTFUL API from json using express.js
+RESTFUL API from json using express.js, mongodb as a database, and mongoose as ODM
 
 ## Preview
 
