@@ -10,4 +10,4 @@ RESTFUL API from json using express.js, mongodb as a database, and mongoose as O
 
 ## Database Diagram
 
-![Database Diagram](./data/db-diagram.png)
+![Database Diagram](./data/db-diagram-update.png)
