@@ -1,0 +1,56 @@
+[
+  {
+    "_id": "65fda58777e9b1a61c319ab7",
+    "name": "Decker Mathews",
+    "email": "deckermathews@glukgluk.com",
+    "role": "admin",
+    "active": false,
+    "photo": "user-2.jpg",
+    "password": ""
+  },
+  {
+    "_id": "65fda5877571719008a9d730",
+    "name": "Cote Jennings",
+    "email": "cotejennings@glukgluk.com",
+    "role": "admin",
+    "active": false,
+    "photo": "user-3.jpg",
+    "password": ""
+  },
+  {
+    "_id": "65fda587703bc300f073a703",
+    "name": "Short Rojas",
+    "email": "shortrojas@glukgluk.com",
+    "role": "user",
+    "active": true,
+    "photo": "user-5.jpg",
+    "password": ""
+  },
+  {
+    "_id": "65fda587cdf58a451ae55bcb",
+    "name": "Melendez Stone",
+    "email": "melendezstone@glukgluk.com",
+    "role": "admin",
+    "active": false,
+    "photo": "user-5.jpg",
+    "password": ""
+  },
+  {
+    "_id": "65fda587df0baa49722046f8",
+    "name": "Flora Gilliam",
+    "email": "floragilliam@glukgluk.com",
+    "role": "user",
+    "active": true,
+    "photo": "user-2.jpg",
+    "password": ""
+  },
+  {
+    "_id": "65fda587c1255a4543316665",
+    "name": "Malinda Lester",
+    "email": "malindalester@glukgluk.com",
+    "role": "user",
+    "active": false,
+    "photo": "user-4.jpg",
+    "password": ""
+  }
+]
