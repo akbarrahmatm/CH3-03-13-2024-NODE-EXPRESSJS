@@ -1,107 +1,98 @@
 const fs = require("fs");
 
-const customers = JSON.parse(
-  fs.readFileSync(`${__dirname}/../data/dummy.json`)
-);
+const Customer = require("../models/customerModel");
 
-const getAllCustomer = (req, res, next) => {
-  res.status(200).json({
-    status: "Success",
-    totalData: customers.length,
-    requestAt: req.requestTime,
-    data: { customers },
-  });
-};
-
-const getCustomerById = (req, res, next) => {
-  const customer = customers.find((custData) => custData._id === req.params.id);
-
-  res.status(200).json({
-    status: "Success",
-    data: { customer },
-  });
-};
-
-const updateCustomer = (req, res, next) => {
-  const id = req.params.id;
-
-  // Search ID
-  const customer = customers.find((custData) => custData._id === id);
-  const customerIndex = customers.findIndex((custData) => custData._id === id);
-
-  // If data didn't exist
-  if (!customer) {
-    return res.status(404).json({
+const getAllCustomer = async (req, res, next) => {
+  try {
+    const customers = await Customer.find();
+    res.status(200).json({
+      status: "Success",
+      totalData: customers.length,
+      requestAt: req.requestTime,
+      data: { customers },
+    });
+  } catch (err) {
+    res.status(400).json({
       status: "Failed",
-      message: `Customer with ID '${id}' Not Found`,
+      message: err.message,
     });
   }
-
-  // Kalau ada, update data dari req.body from client
-  customers[customerIndex] = { ...customers[customerIndex], ...req.body };
-
-  // Update data
-  fs.writeFile(
-    `${__dirname}/data/dummy.json`,
-    JSON.stringify(customers),
-    (err) => {
-      return res.status(200).json({
-        status: "Success",
-        message: "Data successfully updated",
-      });
-    }
-  );
 };
 
-const deleteCustomer = (req, res, next) => {
-  const id = req.params.id;
+const getCustomerById = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const customers = await Customer.findById(id);
 
-  // Search ID
-  const customer = customers.find((custData) => custData._id === id);
-  const customerIndex = customers.findIndex((custData) => custData._id === id);
-
-  // If data didn't exist
-  if (!customer) {
-    return res.status(404).json({
+    res.status(200).json({
+      status: "Success",
+      data: { customers },
+    });
+  } catch (err) {
+    res.status(400).json({
       status: "Failed",
-      message: `Customer with ID '${id}' Not Found`,
+      message: err.message,
     });
   }
-
-  // Kalau ada, delete data
-  customers.splice(customerIndex, 1);
-
-  // Update data
-  fs.writeFile(
-    `${__dirname}/data/dummy.json`,
-    JSON.stringify(customers),
-    (err) => {
-      return res.status(200).json({
-        status: "Success",
-        message: "Data successfully deleted",
-      });
-    }
-  );
 };
 
-const insertCustomer = (req, res, next) => {
-  console.log(req.body);
+const updateCustomer = async (req, res, next) => {
+  try {
+    const id = req.params.id;
 
-  const newCust = req.body;
+    const customer = await Customer.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
 
-  customers.push(newCust);
-  fs.writeFile(
-    `${__dirname}/data/dummy.json`,
-    JSON.stringify(customers),
-    (err) => {
-      res.status(201).json({
-        status: "Success",
-        data: {
-          customer: newCust,
-        },
-      });
-    }
-  );
+    return res.status(200).json({
+      status: "Success",
+      message: "Data successfully updated",
+      data: {
+        customer,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "Failed",
+      message: err.message,
+    });
+  }
+};
+
+const deleteCustomer = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+
+    await Customer.findByIdAndDelete(id);
+
+    return res.status(204).json({
+      status: "Success",
+      message: "Data successfully deleted",
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "Failed",
+      message: err.message,
+    });
+  }
+};
+
+const insertCustomer = async (req, res, next) => {
+  try {
+    const newCustomer = await Customer.create(req.body);
+
+    res.status(201).json({
+      status: "Success",
+      data: {
+        customer: newCustomer,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "Failed",
+      message: err.message,
+    });
+  }
 };
 
 module.exports = {
