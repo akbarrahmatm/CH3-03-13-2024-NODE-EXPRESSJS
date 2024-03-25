@@ -4,7 +4,11 @@ const Customer = require("../models/customerModel");
 
 const getAllCustomer = async (req, res, next) => {
   try {
-    const customers = await Customer.find();
+    const queryObject = { ...req.query };
+    const excludedColumn = ["page", "sort", "limit", "fields"];
+    excludedColumn.forEach((el) => delete queryObject[el]);
+
+    const customers = await Customer.find(queryObject);
     res.status(200).json({
       status: "Success",
       totalData: customers.length,
